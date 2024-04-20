@@ -1,0 +1,21 @@
+services:
+
+  gavel:
+    build: .
+    volumes:
+      - ./config.yaml:/app/config.yaml
+    depends_on:
+      - gavel-postgres
+    ports:
+      - 80:80
+
+  gavel-postgres:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_USER=gavel
+      - POSTGRES_PASSWORD=gavel
+    volumes:
+      - gavel-postgres:/var/lib/postgresql/data
+    
+volumes:
+  gavel-postgres:
